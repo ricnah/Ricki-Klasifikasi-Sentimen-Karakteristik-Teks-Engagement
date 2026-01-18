@@ -54,13 +54,13 @@ def preprocess(text):
 
 # --- Baca dan proses data ---
 
-df = pd.read_csv('ricki127_tweets.csv')  # Baca file CSV berisi tweet
+df = pd.read_csv('hasil_sampleacak_2.csv')  # Baca file CSV berisi tweet
 
 tqdm.pandas(desc="Preprocessing tweets")  # Integrasi tqdm agar bisa tampil progress bar di apply
 df['Preprocessed'] = df['Content'].progress_apply(preprocess)  # Terapkan fungsi preprocess ke kolom 'Content'
 
 # --- Simpan hasil ke file baru ---
 
-df.to_csv('tweet_preprocessed_new.csv', index=False)  # Simpan DataFrame ke CSV tanpa index
+df.to_csv('tweet_preprocessed_2.csv', index=False)  # Simpan DataFrame ke CSV tanpa index
 
-print("Preprocessing selesai! File hasil: tweet_preprocessed_new.csv")  # Tampilkan notifikasi selesai
+print("Preprocessing selesai! File hasil: tweet_preprocessed_2.csv")  # Tampilkan notifikasi selesai

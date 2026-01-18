@@ -1,22 +1,21 @@
 import pandas as pd
-from tqdm import tqdm
 from mlxtend.frequent_patterns import fpgrowth, association_rules
 
-# ==== 1. BACA FILE CSV ====
-file_input = "predictsentiment.csv"
-file_output = "engagement4.csv"
-
-df = pd.read_csv(file_input)
-print(f"✅ File '{file_input}' berhasil dibaca. Jumlah baris: {len(df)}")
+# =========================
+# 1️⃣ BACA DATA
+# =========================
+df = pd.read_csv("tweet_label_manual.csv")
+print(f"\n✅ File 'tweet_label_manual.csv' berhasil dibaca. Jumlah baris: {len(df)}")
 
 # Pastikan kolom numerik
 for col in ['Like', 'Retweet', 'Reply', 'views']:
     df[col] = pd.to_numeric(df[col], errors='coerce').fillna(0)
 
-# ==== 2. HITUNG ANGKA ENGAGEMENT ====
+# =========================
+# 2️⃣ HITUNG ENGAGEMENT
+# =========================
 df['angka_engagement'] = df['Like'] + df['Retweet'] + df['Reply'] + df['views']
 
-# ==== 3. HITUNG KUARTIL DAN BUAT KATEGORI ====
 q1 = df['angka_engagement'].quantile(0.33)
 q2 = df['angka_engagement'].quantile(0.66)
 
@@ -33,65 +32,87 @@ df['kategori_engagement'] = df['angka_engagement'].apply(kategori_engagement)
 print("\n📊 Batas Kuartil Engagement:")
 print(f"Q1 (Rendah ≤): {q1:.2f}")
 print(f"Q2 (Sedang ≤): {q2:.2f}")
-print("Kategori: Rendah, Sedang, Tinggi\n")
+print("Kategori: Rendah, Sedang, Tinggi")
 
-# ==== 4. SIMPAN HASIL KE CSV BARU ====
-df.to_csv(file_output, index=False, encoding='utf-8-sig')
-print(f"✅ Kolom 'angka_engagement' & 'kategori_engagement' berhasil ditambahkan.")
-print(f"📁 File hasil: {file_output}")
+# =========================
+# 3️⃣ SIMPAN DATA LENGKAP
+# =========================
+df.to_csv("hasil_kategori.csv", index=False, encoding="utf-8-sig")
+print("\n✅ File hasil_kategori.csv berhasil dibuat (data lengkap + engagement)")
 
-# ==== 5. ANALISIS ASOSIASI ====
-fitur_asosiasi = [
-    'Preprocessed','label_sentimen','Has Media','Total Media','Mengandung Link','Jumlah Tautan',
-    'Panjang Teks','Jumlah Emoji','Huruf Kapital','Kata Persuasif',
-    'Layanan Disebut','Layanan Disebut Nama','Hashtag','Jumlah Hashtags',
-    'Verified','Mention','Jumlah Mention','kategori_engagement'
+# =========================
+# 4️⃣ FITUR UNTUK FP-GROWTH
+# =========================
+fitur_fp = [
+    'label_sentimen',
+    'Has Media','Total Media',
+    'Mengandung Link','Jumlah Tautan',
+    'Hashtag','Jumlah Hashtags',
+    'Mention','Jumlah Mention',
+    'Verified',
+    'Layanan Disebut','Layanan Disebut Nama',
+    'kategori_engagement'
 ]
 
-df_asosiasi = df[fitur_asosiasi].copy()
+df_fp = df[fitur_fp].astype(str)
+df_dummies = pd.get_dummies(df_fp)
 
-# Ubah kolom non-numerik → string → one-hot encoding (0/1)
-df_dummies = pd.get_dummies(df_asosiasi.astype(str))
+print("\n✅ One-hot encoding selesai. Jumlah fitur:", df_dummies.shape[1])
 
-print("\n🔍 Melakukan analisis asosiasi (FP-Growth)...")
+# =========================
+# 5️⃣ FP-GROWTH
+# =========================
+frequent_itemsets = fpgrowth(
+    df_dummies,
+    min_support=0.05,
+    use_colnames=True
+)
 
-# Temukan frequent itemsets
-frequent_itemsets = fpgrowth(df_dummies, min_support=0.1, use_colnames=True)
+rules = association_rules(
+    frequent_itemsets,
+    metric="confidence",
+    min_threshold=0.5
+)
 
-# Bentuk aturan asosiasi
-rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1.0)
+# Consequent wajib engagement
+rules = rules[
+    rules['consequents'].astype(str).str.contains('kategori_engagement')
+]
 
-# ==== 6. PISAHKAN ATURAN BERDASARKAN KATEGORI ENGAGEMENT ====
-rules_rendah = rules[rules['consequents'].astype(str).str.contains('kategori_engagement_rendah')]
-rules_sedang = rules[rules['consequents'].astype(str).str.contains('kategori_engagement_sedang')]
-rules_tinggi = rules[rules['consequents'].astype(str).str.contains('kategori_engagement_tinggi')]
+print(f"\n📌 Total aturan asosiasi engagement: {len(rules)}")
 
-# Urutkan berdasarkan lift tertinggi
-rules_rendah = rules_rendah.sort_values(by='lift', ascending=False)
-rules_sedang = rules_sedang.sort_values(by='lift', ascending=False)
-rules_tinggi = rules_tinggi.sort_values(by='lift', ascending=False)
+# =========================
+# 6️⃣ TOP-5 PER SENTIMEN × ENGAGEMENT (WAJIB ADA)
+# =========================
+hasil_final = []
 
-# ==== 7. TAMPILKAN HASIL TANPA TERPOTONG ====
-pd.set_option('display.max_colwidth', None)
-pd.set_option('display.width', 2000)
-pd.set_option('display.max_rows', None)
-pd.set_option('display.colheader_justify', 'center')
+for sentimen in ['negatif', 'netral', 'positif']:
+    for engagement in ['rendah', 'sedang', 'tinggi']:
+        subset = rules[
+            rules['antecedents'].astype(str).str.contains(f"label_sentimen_{sentimen}") &
+            rules['consequents'].astype(str).str.contains(f"kategori_engagement_{engagement}")
+        ].sort_values(by='lift', ascending=False).head(5)
 
-print("\n📉 Aturan Engagement Rendah (Top 5):")
-print(rules_rendah[['antecedents', 'consequents', 'support', 'confidence', 'lift']].head(5))
+        # WALAU KURANG DARI 5 → TETAP DIMASUKKAN
+        for _, row in subset.iterrows():
+            hasil_final.append({
+                'sentimen': sentimen,
+                'kategori_engagement': engagement,
+                'antecedents': row['antecedents'],
+                'support': row['support'],
+                'confidence': row['confidence'],
+                'lift': row['lift']
+            })
 
-print("\n📊 Aturan Engagement Sedang (Top 5):")
-print(rules_sedang[['antecedents', 'consequents', 'support', 'confidence', 'lift']].head(5))
+hasil_final = pd.DataFrame(hasil_final)
 
-print("\n📈 Aturan Engagement Tinggi (Top 5):")
-print(rules_tinggi[['antecedents', 'consequents', 'support', 'confidence', 'lift']].head(5))
+# =========================
+# 7️⃣ SIMPAN HASIL FINAL
+# =========================
+hasil_final.to_csv("hasil_engagement.csv", index=False, encoding="utf-8-sig")
 
-# ==== 8. SIMPAN SEMUA HASIL KE FILE CSV UNTUK SKRIPSI ====
-rules_rendah.to_csv("hasil_asosiasi_rendah.csv", index=False, encoding='utf-8-sig')
-rules_sedang.to_csv("hasil_asosiasi_sedang.csv", index=False, encoding='utf-8-sig')
-rules_tinggi.to_csv("hasil_asosiasi_tinggi.csv", index=False, encoding='utf-8-sig')
-
-print("\n📄 File hasil disimpan sebagai:")
-print("   - hasil_asosiasi_rendah.csv")
-print("   - hasil_asosiasi_sedang.csv")
-print("   - hasil_asosiasi_tinggi.csv")
+print("\n✅ Analisis FP-Growth selesai")
+print("📁 File output utama:")
+print("   - hasil_kategori.csv")
+print("   - hasil_engagement.csv")
+print(f"📊 Total rule tersimpan: {len(hasil_final)}")

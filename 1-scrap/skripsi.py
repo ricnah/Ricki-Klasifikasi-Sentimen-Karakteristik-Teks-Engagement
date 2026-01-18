@@ -51,49 +51,49 @@ keywords = [
 
     # Umum & Loyalitas
     "Pakai Shopee nyaman", "Belanja di Shopee enak", "Shopee andalan saya", "Shopee favorit",
-    "Shopee aplikasi bagus", "Shopee memudahkan", "Shopee top banget", "Shopee pengalaman positif"
+    "Shopee aplikasi bagus", "Shopee memudahkan", "Shopee top banget", "Shopee pengalaman positif",
     
-    # # Shopee Affiliate (dipersempit untuk proporsi data)
-    # "Shopee Affiliate susah", "Shopee Affiliate gagal", "Shopee Affiliate error", "Shopee Affiliate komisi", "Shopee Affiliate review",
-    # "Shopee Affiliate kecewa", "Shopee Affiliate telat", "Shopee Affiliate pending",
+    # Shopee Affiliate (dipersempit untuk proporsi data)
+    "Shopee Affiliate susah", "Shopee Affiliate gagal", "Shopee Affiliate error", "Shopee Affiliate komisi", "Shopee Affiliate review",
+    "Shopee Affiliate kecewa", "Shopee Affiliate telat", "Shopee Affiliate pending",
 
-    # # ShopeePay, ShopeeFood, ShopeeVideo, ShopeeLive (DITAMBAH NEGATIF)
-    # "Shopee SPX", "Shopee Express", "ShopeePay tidak bisa", "ShopeePay gagal", "ShopeePay telat", "ShopeePay tidak masuk",
-    # "ShopeePay dibekukan", "ShopeePay pending", "ShopeePay lambat", "ShopeePay error", "Top up Shopee",
-    # "ShopeeFood telat", "ShopeeFood dingin", "ShopeeFood lambat", "ShopeeFood cancel", "Transfer Shopee",
-    # "ShopeeFood jelek", "ShopeeFood mantap", "ShopeeFood refund", "Shopee COD", "Shopee pengiriman",
-    # "ShopeeLive error", "ShopeeLive macet", "ShopeeLive buffering", "Shopee Bayar ditempat", "Shopee pengembalian barang",
-    # "ShopeeVideo lemot", "ShopeeVideo tidak bisa dibuka", "ShopeeVideo gagal loading",
+    # ShopeePay, ShopeeFood, ShopeeVideo, ShopeeLive (DITAMBAH NEGATIF)
+    "Shopee SPX", "Shopee Express", "ShopeePay tidak bisa", "ShopeePay gagal", "ShopeePay telat", "ShopeePay tidak masuk",
+    "ShopeePay dibekukan", "ShopeePay pending", "ShopeePay lambat", "ShopeePay error", "Top up Shopee",
+    "ShopeeFood telat", "ShopeeFood dingin", "ShopeeFood lambat", "ShopeeFood cancel", "Transfer Shopee",
+    "ShopeeFood jelek", "ShopeeFood mantap", "ShopeeFood refund", "Shopee COD", "Shopee pengiriman",
+    "ShopeeLive error", "ShopeeLive macet", "ShopeeLive buffering", "Shopee Bayar ditempat", "Shopee pengembalian barang",
+    "ShopeeVideo lemot", "ShopeeVideo tidak bisa dibuka", "ShopeeVideo gagal loading",
 
-    # # Event diskon besar
-    # "Shopee 12.12 bot", "Shopee 6.6", "Shopee 1.1", "Shopee ramadhan Sale",
-    # "Shopee iphone 1 rupiah", "Shopee flash sale", "Shopee rebutan barang", "Bot Shopee", "Flash Sale shopee bot",
+    # Event diskon besar
+    "Shopee 12.12 bot", "Shopee 6.6", "Shopee 1.1", "Shopee ramadhan Sale",
+    "Shopee iphone 1 rupiah", "Shopee flash sale", "Shopee rebutan barang", "Bot Shopee", "Flash Sale shopee bot",
 
-    # # Masalah UX / aplikasi berat / lemot
-    # "Aplikasi Shopee berat", "Shopee lemot", "Shopee crash", "Shopee error loading", "Shopee aplikasi rusak",
-    # "Shopee tidak responsif", "Shopee keluar sendiri", "Shopee tidak bisa dibuka",
+    # Masalah UX / aplikasi berat / lemot
+    "Aplikasi Shopee berat", "Shopee lemot", "Shopee crash", "Shopee error loading", "Shopee aplikasi rusak",
+    "Shopee tidak responsif", "Shopee keluar sendiri", "Shopee tidak bisa dibuka",
 
-    # # Umum: pembeli, penjual, pengalaman
-    # "Pakai Shopee", "Shopee pembeli", "Shopee penjual", "Review Shopee", "Shopee CS", "Shopee Customer Service",
-    # "Shopee paket hilang", "Shopee pengiriman lama", "Shopee layanan buruk",
-    # "Shopee bagus", "Shopee terpercaya", "Shopee recommended", "Shopee kurir", 
+    # Umum: pembeli, penjual, pengalaman
+    "Pakai Shopee", "Shopee pembeli", "Shopee penjual", "Review Shopee", "Shopee CS", "Shopee Customer Service",
+    "Shopee paket hilang", "Shopee pengiriman lama", "Shopee layanan buruk",
+    "Shopee bagus", "Shopee terpercaya", "Shopee recommended", "Shopee kurir", 
 
-    # # Kata negatif umum terkait Shopee
-    # "Shopee id post", "Penipuan Shopee", "Shopee goblok", "Shopee dongo", "Shopee bego", "Shopee njir", "Shopee susah",
-    # "Shopee anjing", "Shopee nipu", "Shopee jelek", "Shopee nipu seller", "Shopee nipu pembeli", "Shopee anjir",
-    # "shopee suntik ulasan", "Shopee babi", "Shopee ulasan palsu", "Shopee dibekukan",
+    # Kata negatif umum terkait Shopee
+    "Shopee id post", "Penipuan Shopee", "Shopee goblok", "Shopee dongo", "Shopee bego", "Shopee njir", "Shopee susah",
+    "Shopee anjing", "Shopee nipu", "Shopee jelek", "Shopee nipu seller", "Shopee nipu pembeli", "Shopee anjir",
+    "shopee suntik ulasan", "Shopee babi", "Shopee ulasan palsu", "Shopee dibekukan",
     
-    # # Shopee Mall / Toko Resmi
-    # "Shopee Mall", "belanja di Shopee Mall", "toko resmi Shopee", "Shopee Mall asli atau palsu", 
-    # "harga di Shopee Mall", "produk Shopee Mall rusak", "Shopee Mall mahal", "Shopee Mall worth it",
-    # "bedanya Shopee Mall dan biasa", "Shopee Mall penipuan", "Shopee Mall pengiriman lama",
+    # Shopee Mall / Toko Resmi
+    "Shopee Mall", "belanja di Shopee Mall", "toko resmi Shopee", "Shopee Mall asli atau palsu", 
+    "harga di Shopee Mall", "produk Shopee Mall rusak", "Shopee Mall mahal", "Shopee Mall worth it",
+    "bedanya Shopee Mall dan biasa", "Shopee Mall penipuan", "Shopee Mall pengiriman lama",
     
-    # # Level pengguna Shopee
-    # "Akun silver Shopee", "Akun gold Shopee", "Akun platinum Shopee",
-    # "akun baru Shopee dibatasi", "akun lama Shopee lebih untung", 
-    # "akun Shopee limit voucher", "akun Shopee tidak dapat cashback",
-    # "Shopee tidak bisa checkout", "Shopee tidak adil akun baru",
-    # "Platinum Shopee tidak dapat voucher", "Pembeli Shopee gold"
+    # Level pengguna Shopee
+    "Akun silver Shopee", "Akun gold Shopee", "Akun platinum Shopee",
+    "akun baru Shopee dibatasi", "akun lama Shopee lebih untung", 
+    "akun Shopee limit voucher", "akun Shopee tidak dapat cashback",
+    "Shopee tidak bisa checkout", "Shopee tidak adil akun baru",
+    "Platinum Shopee tidak dapat voucher", "Pembeli Shopee gold"
 ]
 
 # ===== Kata Persuasif dan Brand =====
@@ -114,8 +114,8 @@ driver.get("https://twitter.com/login")
 input("Silakan login, lalu tekan Enter di sini...")
 
 # ===== File dan Checkpoint =====
-csv_file = "rickipositif_tweets_raw.csv"
-checkpoint_file = "rickipositif_tweets_checkpoint.json"
+csv_file = "ricki_tweets_raw.csv"
+checkpoint_file = "ricki_tweets_checkpoint.json"
 
 if not os.path.exists(csv_file):
     pd.DataFrame(columns=['Tweet Id', 'Date', 'Display Name', 'Username', 'Replying', 'Replying To', 'Content', 'Query', 'Like', 'Retweet', 'Reply', 'views', 'Has Media', 'Total Media', 'Media Type', 'Mengandung Link', 'Jumlah Tautan', 'Link dalam Konten', 'Panjang Teks', 'Jumlah Emoji', 'Huruf Kapital', 'Kata Persuasif', 'Layanan Disebut', 'Layanan Disebut Nama', 'Hashtag', 'Jumlah Hashtags', 'Daftar Hashtags', 'Verified', 'Verified Type', 'Mention', 'Jumlah Mention', 'Daftar Mention', 'Tweet Link']).to_csv(csv_file, index=False, encoding='utf-8-sig')

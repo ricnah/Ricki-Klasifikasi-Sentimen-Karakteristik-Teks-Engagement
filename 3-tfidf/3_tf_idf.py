@@ -6,58 +6,69 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import pickle
 import numpy as np
 
-# Load data tweet yang sudah dilabeli
-df = pd.read_csv("tweet_prepro_label_manual.csv")  # Berisi 1000 tweet
+# ===============================
+# 1️⃣ Load data TRAIN & TEST hasil split
+# ===============================
+train_df = pd.read_csv("train_80.csv")
+test_df = pd.read_csv("test_20.csv")
 
-# Hapus data kosong pada kolom penting di preprocessed
-df = df.dropna(subset=['Preprocessed'])
+# Hapus data kosong (aman)
+train_df = train_df.dropna(subset=["Preprocessed", "label_sentimen"])
+test_df = test_df.dropna(subset=["Preprocessed", "label_sentimen"])
 
-# TF-IDF vektorisasi pada kolom Preprocessed
-vectorizer = TfidfVectorizer(max_features=5000)
-X_tfidf = vectorizer.fit_transform(df['Preprocessed'])
+X_train_text = train_df["Preprocessed"]
+y_train = train_df["label_sentimen"]
 
-# Label sentimen
-y = df['label_sentimen']
+X_test_text = test_df["Preprocessed"]
+y_test = test_df["label_sentimen"]
 
 # ===============================
-# 1️⃣ Simpan vectorizer & matriks TF-IDF
+# 2️⃣ TF-IDF (FIT HANYA DATA TRAIN)
+# ===============================
+vectorizer = TfidfVectorizer(max_features=5000)
+
+X_train_tfidf = vectorizer.fit_transform(X_train_text)
+X_test_tfidf = vectorizer.transform(X_test_text)
+
+# ===============================
+# 3️⃣ Simpan vectorizer & hasil TF-IDF (PKL)
 # ===============================
 with open("tfidf_vectorizer.pkl", "wb") as f:
     pickle.dump(vectorizer, f)
 
-with open("X_tfidf.pkl", "wb") as f:
-    pickle.dump(X_tfidf, f)
+with open("X_train_tfidf.pkl", "wb") as f:
+    pickle.dump(X_train_tfidf, f)
 
-with open("y_labels.pkl", "wb") as f:
-    pickle.dump(y, f)
+with open("X_test_tfidf.pkl", "wb") as f:
+    pickle.dump(X_test_tfidf, f)
+
+with open("y_train.pkl", "wb") as f:
+    pickle.dump(y_train, f)
+
+with open("y_test.pkl", "wb") as f:
+    pickle.dump(y_test, f)
 
 # ===============================
-# 2️⃣ Simpan dataframe asli untuk keperluan lain
-# ===============================
-df.to_csv("tweet_tfidf.csv", index=False)
-
-# ===============================
-# 3️⃣ Ekspor seluruh matriks TF-IDF ke CSV
-# ⚠️ Bisa besar, tapi aman untuk penelitian
+# 4️⃣ Ekspor FULL matriks TF-IDF ke CSV (TRAIN)
 # ===============================
 feature_names = vectorizer.get_feature_names_out()
-tfidf_dense = X_tfidf.toarray()
 
-full_tfidf_df = pd.DataFrame(tfidf_dense, columns=feature_names)
-full_tfidf_df.to_csv("tfidf_matrix_full.csv", index=False)
+tfidf_dense = X_train_tfidf.toarray()
 
-# ===============================
-# 4️⃣ Ekspor versi ringkas untuk laporan (10 tweet × 20 kata)
-# ===============================
-sample_tfidf_df = pd.DataFrame(tfidf_dense[:10, :20], columns=feature_names[:20])
-sample_tfidf_df.to_csv("tfidf_matrix_sample.csv", index=False)
+full_tfidf_df = pd.DataFrame(
+    tfidf_dense,
+    columns=feature_names
+)
+
+full_tfidf_df.to_csv(
+    "tfidf_matrix_train_full.csv",
+    index=False,
+    encoding="utf-8-sig"
+)
 
 print("=============================================")
-print("✅ Semua file TF-IDF berhasil dibuat:")
-print("- tfidf_vectorizer.pkl")
-print("- X_tfidf.pkl")
-print("- y_labels.pkl")
-print("- tweet_tfidf.csv")
-print("- tfidf_matrix_full.csv  (seluruh matriks TF-IDF)")
-print("- tfidf_matrix_sample.csv (contoh untuk laporan)")
+print("✅ TF-IDF selesai (FULL matrix diekspor)")
+print("- FIT hanya TRAIN (train_80.csv)")
+print("- File CSV: tfidf_matrix_train_full.csv")
+print("⚠️ Catatan: ukuran file bisa besar")
 print("=============================================")

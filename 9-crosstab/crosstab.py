@@ -4,7 +4,7 @@ from tqdm import tqdm
 import os
 
 # --- 1️⃣ Baca data ---
-df = pd.read_csv("engagement3.csv")
+df = pd.read_csv("hasil_kategori.csv")
 
 # --- 2️⃣ Pastikan kolom penting ada ---
 cols = [

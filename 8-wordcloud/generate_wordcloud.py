@@ -8,7 +8,7 @@ from tqdm import tqdm  # ✅ untuk progress bar
 
 # --- 1️⃣ Baca data CSV ---
 # Ganti path sesuai file kamu
-df = pd.read_csv("engagement3.csv")
+df = pd.read_csv("hasil_kategori.csv")
 
 # Pastikan kolom penting ada
 required_cols = ['Preprocessed', 'label_sentimen', 'kategori_engagement']
